@@ -1,0 +1,19 @@
+name: Deploy to Surge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v3
+
+      - name: Instalar Surge
+        run: npm install --global surge
+
+      - name: Subir a Surge
+        run: surge ./ --domain tudominio.surge.sh --token ${{ secrets.SURGE_TOKEN }}
